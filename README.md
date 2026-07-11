@@ -49,18 +49,6 @@ This is a static, dependency-free project — no build tools or package manager 
 
 ## ⚙️ Configuration
 
-### AdSense
-
-Replace the placeholder publisher and slot IDs before deploying:
-
-```html
-<script
-  async
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX"
-></script>
-```
-
-Update `data-ad-client` and `data-ad-slot` on each `<ins class="adsbygoogle">` element (banner, square, in-feed, and footer units).
 
 ### Adding a Language
 
