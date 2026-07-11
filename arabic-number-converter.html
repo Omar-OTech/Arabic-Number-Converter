@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
+    <title>
+      Arabic Number Converter – Convert English to Arabic Numerals Instantly
+    </title>
+    <meta
+      name="description"
+      content="Free online Arabic number converter. Instantly convert English (Western) numerals to Eastern Arabic numerals (٠١٢٣٤٥٦٧٨٩). Supports bilingual UI, copy, and history."
+    />
+    <meta
+      name="keywords"
+      content="arabic numbers, arabic numerals, convert numbers, eastern arabic, western arabic, number converter, hijri date"
+    />
+    <meta name="author" content="Arabic Number Converter" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Arabic Number Converter" />
+    <meta
+      property="og:description"
+      content="Convert English numerals to Arabic numerals instantly. Free, fast, and bilingual."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- ═══════════════════════════════════════════
+       REPLACE ca-pub-XXXXXXXXXXXXXXXXX with YOUR publisher ID
+  ════════════════════════════════════════════ -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      :root {
+        --amber: #f59e0b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Playpen Sans Arabic", cursive;
+        transition:
+          background 0.4s ease,
+          color 0.4s ease;
+        min-height: 100vh;
+      }
+
+      .glass {
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+
+      /* ─── THEME TOGGLE ─── */
+      #themeToggle {
+        background: #1e293b;
+        color: #fff;
+        border: 2px solid rgba(255, 255, 255, 0.15);
+      }
+      .light-mode #themeToggle {
+        background: #fff;
+        color: #1e293b;
+        border: 2px solid rgba(0, 0, 0, 0.12);
+      }
+
+      /* ─── DARK MODE ─── */
+      .dark-mode {
+        background: linear-gradient(
+          135deg,
+          #020617 0%,
+          #0f172a 55%,
+          #451a03 100%
+        );
+        color: #f1f5f9;
+      }
+      .dark-mode .card {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .dark-mode .input-field {
+        background: rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: #f1f5f9;
+      }
+      .dark-mode .input-field:focus {
+        border-color: var(--amber);
+      }
+      .dark-mode .input-field::placeholder {
+        color: #64748b;
+      }
+      .dark-mode .output-box {
+        background: rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .dark-mode .secondary-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.15);
+        color: #f1f5f9;
+      }
+      .dark-mode .divider {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .dark-mode .history-item {
+        background: rgba(0, 0, 0, 0.25);
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+      .dark-mode .muted {
+        color: #94a3b8;
+      }
+      .dark-mode .badge {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .dark-mode .date-section-label {
+        color: #64748b;
+      }
+      .dark-mode .hijri-card {
+        background: rgba(245, 158, 11, 0.07);
+        border-color: rgba(245, 158, 11, 0.2);
+      }
+
+      /* ─── LIGHT MODE ─── */
+      .light-mode {
+        background: linear-gradient(
+          135deg,
+          #f0f4ff 0%,
+          #fefce8 55%,
+          #fff7ed 100%
+        );
+        color: #1e293b;
+      }
+      .light-mode .card {
+        background: rgba(255, 255, 255, 0.75);
+        border-color: rgba(0, 0, 0, 0.08);
+      }
+      .light-mode .input-field {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(0, 0, 0, 0.12);
+        color: #1e293b;
+      }
+      .light-mode .input-field:focus {
+        border-color: var(--amber);
+      }
+      .light-mode .input-field::placeholder {
+        color: #94a3b8;
+      }
+      .light-mode .output-box {
+        background: rgba(255, 255, 255, 0.7);
+        border-color: rgba(0, 0, 0, 0.1);
+      }
+      .light-mode .secondary-btn {
+        background: rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.12);
+        color: #1e293b;
+      }
+      .light-mode .divider {
+        border-color: rgba(0, 0, 0, 0.08);
+      }
+      .light-mode .history-item {
+        background: rgba(255, 255, 255, 0.6);
+        border-color: rgba(0, 0, 0, 0.07);
+      }
+      .light-mode .muted {
+        color: #64748b;
+      }
+      .light-mode .badge {
+        background: rgba(245, 158, 11, 0.1);
+        border-color: rgba(245, 158, 11, 0.25);
+      }
+      .light-mode .date-section-label {
+        color: #94a3b8;
+      }
+      .light-mode .hijri-card {
+        background: rgba(245, 158, 11, 0.08);
+        border-color: rgba(245, 158, 11, 0.25);
+      }
+
+      /* ─── DATE CARDS ─── */
+      /* Two-line format: English on top, Arabic numeral bottom */
+      .date-en {
+        font-size: 0.85rem;
+        opacity: 0.55;
+        line-height: 1.2;
+      }
+      .date-ar {
+        font-size: 1.35rem;
+        font-weight: 900;
+        color: var(--amber);
+        line-height: 1.2;
+      }
+
+      /* ─── ADS ─── */
+      .ad-unit {
+        display: block;
+        overflow: hidden;
+        border-radius: 1rem;
+        text-align: center;
+        margin: 0 auto;
+      }
+      .ad-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      /* ─── ANIMATIONS ─── */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.4s ease forwards;
+      }
+
+      .output-box {
+        transition: background 0.2s ease;
+        word-break: break-all;
+      }
+
+      textarea {
+        resize: none;
+        scrollbar-width: thin;
+      }
+    </style>
+  </head>
+
+  <body class="dark-mode">
+    <!-- ── THEME TOGGLE ── -->
+    <button
+      id="themeToggle"
+      aria-label="Toggle theme"
+      class="fixed top-5 right-5 z-50 w-12 h-12 rounded-full text-xl shadow-xl hover:scale-110 active:scale-95 transition-transform"
+    >
+      🌙
+    </button>
+
+    <!-- ── TOP BANNER AD ── Replace data-ad-* with your values -->
+    <div class="w-full px-4 pt-4 pb-2 flex flex-col items-center">
+      <p class="ad-label muted">Advertisement</p>
+      <ins
+        class="adsbygoogle ad-unit"
+        style="display: block; width: 100%; max-width: 728px; height: 90px"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+        data-ad-slot="1111111111"
+        data-ad-format="horizontal"
+        data-full-width-responsive="false"
+      ></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- ── MAIN ── -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <!-- ════════════ LEFT COLUMN ════════════ -->
+        <div class="space-y-5 fade-in">
+          <div
+            class="badge inline-flex items-center px-4 py-2 rounded-full border text-amber-400 text-xs font-semibold tracking-wide glass"
+          >
+            ✦ Arabic Number Converter
+          </div>
+
+          <h1
+            id="heroTitle"
+            class="text-4xl lg:text-5xl font-black leading-tight"
+          >
+            Convert English Numbers Into
+            <span class="block text-amber-400">Arabic Numerals</span>
+          </h1>
+
+          <p
+            id="heroDescription"
+            class="muted text-sm leading-relaxed max-w-md"
+          >
+            Professional real-time Arabic number converter with copy support,
+            responsive design, dark &amp; light modes, and a smooth user
+            experience.
+          </p>
+
+          <!-- ── GREGORIAN DATE CARDS ── -->
+          <div>
+            <p
+              id="gregLabel"
+              class="date-section-label text-xs uppercase tracking-widest mb-2 font-semibold"
+            >
+              📅 Gregorian Date
+            </p>
+            <div class="grid grid-cols-3 gap-2">
+              <div class="card rounded-2xl border p-3 glass text-center">
+                <p
+                  id="dayLabel"
+                  class="muted text-xs mb-1 uppercase tracking-widest"
+                >
+                  Day
+                </p>
+                <div class="date-en" id="dayEn"></div>
+                <div class="date-ar" id="dayAr"></div>
+              </div>
+
+              <div class="card rounded-2xl border p-3 glass text-center">
+                <p
+                  id="monthLabel"
+                  class="muted text-xs mb-1 uppercase tracking-widest"
+                >
+                  Month
+                </p>
+                <div class="date-en" id="monthEn"></div>
+                <div class="date-ar" id="monthAr"></div>
+              </div>
+
+              <div class="card rounded-2xl border p-3 glass text-center">
+                <p
+                  id="yearLabel"
+                  class="muted text-xs mb-1 uppercase tracking-widest"
+                >
+                  Year
+                </p>
+                <div class="date-en" id="yearEn"></div>
+                <div class="date-ar" id="yearAr"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── HIJRI DATE CARDS ── -->
+          <div>
+            <p
+              id="hijriLabel"
+              class="date-section-label text-xs uppercase tracking-widest mb-2 font-semibold"
+            >
+              🌙 Hijri Date
+            </p>
+            <div class="grid grid-cols-3 gap-2">
+              <div
+                class="hijri-card card rounded-2xl border p-3 glass text-center"
+              >
+                <p
+                  id="hDayLabel"
+                  class="muted text-xs mb-1 uppercase tracking-widest"
+                >
+                  Day
+                </p>
+                <div class="date-en" id="hDayEn"></div>
+                <div class="date-ar" id="hDayAr"></div>
+              </div>
+
+              <div
+                class="hijri-card card rounded-2xl border p-3 glass text-center"
+              >
+                <p
+                  id="hMonthLabel"
+                  class="muted text-xs mb-1 uppercase tracking-widest"
+                >
+                  Month
+                </p>
+                <div class="date-en" id="hMonthEn"></div>
+                <div class="date-ar" id="hMonthAr"></div>
+              </div>
+
+              <div
+                class="hijri-card card rounded-2xl border p-3 glass text-center"
+              >
+                <p
+                  id="hYearLabel"
+                  class="muted text-xs mb-1 uppercase tracking-widest"
+                >
+                  Year
+                </p>
+                <div class="date-en" id="hYearEn"></div>
+                <div class="date-ar" id="hYearAr"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SQUARE AD (left column) ── -->
+          <div class="flex flex-col items-start gap-1">
+            <p class="ad-label muted">Advertisement</p>
+            <ins
+              class="adsbygoogle ad-unit"
+              style="display: inline-block; width: 300px; height: 250px"
+              data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+              data-ad-slot="2222222222"
+            ></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        </div>
+
+        <!-- ════════════ RIGHT COLUMN (CONVERTER) ════════════ -->
+        <div
+          class="card rounded-3xl border p-6 glass shadow-2xl fade-in space-y-5"
+        >
+          <!-- Header -->
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 id="converterTitle" class="text-2xl font-bold">Converter</h2>
+              <p id="converterDesc" class="muted mt-1 text-sm">
+                Instant Arabic numeral conversion
+              </p>
+            </div>
+            <button
+              id="langToggle"
+              aria-label="Toggle language"
+              class="px-4 py-2 rounded-xl bg-amber-400 text-black font-bold text-sm hover:scale-105 active:scale-95 transition-transform shadow"
+            >
+              AR
+            </button>
+          </div>
+
+          <!-- INPUT -->
+          <div>
+            <label
+              id="inputLabel"
+              for="inputText"
+              class="block mb-2 text-sm font-semibold"
+            >
+              English Numbers
+            </label>
+            <textarea
+              id="inputText"
+              placeholder="Type here…"
+              rows="5"
+              class="input-field w-full rounded-2xl border p-4 text-sm outline-none focus:ring-2 focus:ring-amber-400/30 transition"
+            ></textarea>
+            <div class="flex justify-between mt-1 text-xs muted">
+              <span id="charWrapper"
+                >Characters: <span id="charCount">0</span></span
+              >
+              <span class="opacity-50">Ctrl + K to clear</span>
+            </div>
+          </div>
+
+          <!-- OUTPUT -->
+          <div>
+            <label id="outputLabel" class="block mb-2 text-sm font-semibold"
+              >Arabic Numbers</label
+            >
+            <div
+              id="outputText"
+              role="status"
+              aria-live="polite"
+              class="output-box min-h-[100px] rounded-2xl border p-4 text-lg font-bold leading-relaxed muted"
+            >
+              Converted output will appear here
+            </div>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="flex gap-3">
+            <button
+              id="copyBtn"
+              class="flex-1 bg-amber-400 text-black font-bold py-3 rounded-xl hover:bg-amber-300 active:scale-95 transition shadow-lg text-sm"
+            >
+              📋 Copy
+            </button>
+            <button
+              id="clearBtn"
+              class="secondary-btn px-5 border rounded-xl font-semibold hover:opacity-80 active:scale-95 transition text-sm"
+            >
+              ↺ Clear
+            </button>
+          </div>
+
+          <!-- HISTORY -->
+          <div class="divider border-t pt-4">
+            <h3 id="historyTitle" class="text-base font-bold mb-3">
+              Recent Conversions
+            </h3>
+            <div id="historyContainer" class="space-y-2">
+              <p id="historyEmpty" class="muted text-sm">
+                No conversion history yet
+              </p>
+            </div>
+          </div>
+
+          <!-- ── IN-FEED AD ── -->
+          <div class="divider border-t pt-4 flex flex-col items-center gap-1">
+            <p class="ad-label muted">Advertisement</p>
+            <ins
+              class="adsbygoogle ad-unit"
+              style="display: block; width: 100%; height: 100px"
+              data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+              data-ad-slot="3333333333"
+              data-ad-format="fluid"
+              data-ad-layout-key="-fb+5w+4e-db+86"
+            ></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FOOTER AD ── -->
+    <div class="w-full px-4 py-4 flex flex-col items-center">
+      <p class="ad-label muted">Advertisement</p>
+      <ins
+        class="adsbygoogle ad-unit"
+        style="display: block; width: 100%; max-width: 728px; height: 90px"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+        data-ad-slot="4444444444"
+        data-ad-format="horizontal"
+        data-full-width-responsive="false"
+      ></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <footer class="text-center pb-6 muted text-xs opacity-40">
+      © <span id="footerYear"></span> Arabic Number Converter · Free Online Tool
+    </footer>
+
+    <!-- ══════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════ -->
+    <script>
+      // ── ELEMENT REFS ─────────────────────────
+      const inputText = document.getElementById("inputText");
+      const outputText = document.getElementById("outputText");
+      const copyBtn = document.getElementById("copyBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const historyContainer = document.getElementById("historyContainer");
+      const langToggle = document.getElementById("langToggle");
+      const themeToggle = document.getElementById("themeToggle");
+      const charWrapper = document.getElementById("charWrapper");
+      let charCountEl = document.getElementById("charCount");
+
+      // ── STATE ────────────────────────────────
+      let conversionHistory = [];
+      let currentLang = "en";
+      let currentTheme = "dark";
+
+      // ── NUMERALS MAP ─────────────────────────
+      const arabicNumerals = {
+        0: "٠",
+        1: "١",
+        2: "٢",
+        3: "٣",
+        4: "٤",
+        5: "٥",
+        6: "٦",
+        7: "٧",
+        8: "٨",
+        9: "٩",
+      };
+
+      // ── TRANSLATIONS ─────────────────────────
+      const T = {
+        en: {
+          title: "Convert English Numbers Into",
+          subtitle: "Arabic Numerals",
+          description:
+            "Professional real-time Arabic number converter with copy support, responsive design, dark & light modes, and a smooth user experience.",
+          converter: "Converter",
+          converterDesc: "Instant Arabic numeral conversion",
+          inputLabel: "English Numbers",
+          outputLabel: "Arabic Numbers",
+          placeholder: "Type here…",
+          outputPlaceholder: "Converted output will appear here",
+          characters: "Characters",
+          copy: "📋 Copy",
+          copied: "✅ Copied!",
+          failed: "❌ Failed",
+          clear: "↺ Clear",
+          history: "Recent Conversions",
+          noHistory: "No conversion history yet",
+          gregLabel: "📅 Gregorian Date",
+          hijriLabel: "🌙 Hijri Date",
+          day: "Day",
+          month: "Month",
+          year: "Year",
+          hDay: "Day",
+          hMonth: "Month",
+          hYear: "Year",
+        },
+        ar: {
+          title: "تحويل الأرقام الإنجليزية إلى",
+          subtitle: "أرقام عربية",
+          description:
+            "محول احترافي وفوري للأرقام العربية مع دعم النسخ وتصميم متجاوب وتجربة استخدام سلسة.",
+          converter: "المحوِّل",
+          converterDesc: "تحويل فوري للأرقام العربية",
+          inputLabel: "الأرقام الإنجليزية",
+          outputLabel: "الأرقام العربية",
+          placeholder: "اكتب هنا…",
+          outputPlaceholder: "سيظهر النص المحوَّل هنا",
+          characters: "عدد الأحرف",
+          copy: "📋 نسخ",
+          copied: "✅ تم النسخ",
+          failed: "❌ فشل النسخ",
+          clear: "↺ مسح",
+          history: "آخر التحويلات",
+          noHistory: "لا يوجد سجل تحويلات",
+          gregLabel: "📅 التاريخ الميلادي",
+          hijriLabel: "🌙 التاريخ الهجري",
+          day: "اليوم",
+          month: "الشهر",
+          year: "السنة",
+          hDay: "اليوم",
+          hMonth: "الشهر",
+          hYear: "السنة",
+        },
+      };
+
+      // ── CONVERT ──────────────────────────────
+      function toArabic(text) {
+        return text
+          .split("")
+          .map((c) => arabicNumerals[c] ?? c)
+          .join("");
+      }
+
+      // ── HIJRI DATE ───────────────────────────
+      const hijriMonthNamesEn = [
+        "Muharram",
+        "Safar",
+        "Rabi' al-awwal",
+        "Rabi' al-thani",
+        "Jumada al-awwal",
+        "Jumada al-thani",
+        "Rajab",
+        "Sha'ban",
+        "Ramadan",
+        "Shawwal",
+        "Dhu al-Qi'dah",
+        "Dhu al-Hijjah",
+      ];
+
+      function getHijriParts() {
+        const now = new Date();
+        try {
+          // Force Latin (English) digits so we control both versions ourselves
+          const enFmt = new Intl.DateTimeFormat(
+            "en-u-ca-islamic-umalqura-nu-latn",
+            { day: "numeric", month: "numeric", year: "numeric" },
+          );
+          const enParts = enFmt.formatToParts(now);
+          const getEn = (type) =>
+            enParts.find((p) => p.type === type)?.value ?? "—";
+
+          const dayEn = getEn("day");
+          const monthNum = getEn("month");
+          const yearEn = getEn("year");
+
+          const monthEn = new Intl.DateTimeFormat(
+            "en-u-ca-islamic-umalqura",
+            { month: "long" },
+          ).format(now);
+          const monthAr = new Intl.DateTimeFormat(
+            "ar-SA-u-ca-islamic-umalqura",
+            { month: "long" },
+          ).format(now);
+
+          return {
+            dayEn,
+            dayAr: toArabic(dayEn),
+            monthEn,
+            monthAr,
+            yearEn,
+            yearAr: toArabic(yearEn),
+            monthNum,
+          };
+        } catch {
+          // Fallback: manual calculation (produces English digits natively)
+          const jd = Math.floor(now / 86400000) + 2440588;
+          const l = jd - 1948440 + 10632;
+          const n = Math.floor((l - 1) / 10631);
+          const l2 = l - 10631 * n + 354;
+          const j =
+            Math.floor((10985 - l2) / 5316) * Math.floor((50 * l2) / 17719) +
+            Math.floor(l2 / 5670) * Math.floor((43 * l2) / 15238);
+          const l3 =
+            l2 -
+            Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) -
+            Math.floor(j / 16) * Math.floor((15238 * j) / 43) +
+            29;
+          const month = Math.floor((24 * l3) / 709);
+          const day = l3 - Math.floor((709 * month) / 24);
+          const year = 30 * n + j - 30;
+          const dayEn = String(day);
+          const yearEn = String(year);
+          const monthEn = hijriMonthNamesEn[(month - 1 + 12) % 12];
+          return {
+            dayEn,
+            dayAr: toArabic(dayEn),
+            monthEn,
+            monthAr: monthEn, // no lightweight Arabic-name fallback without Intl
+            yearEn,
+            yearAr: toArabic(yearEn),
+            monthNum: String(month),
+          };
+        }
+      }
+
+      // ── DATE CARDS ───────────────────────────
+      function updateDateCards() {
+        const now = new Date();
+        const day = now.getDate();
+        const month = now.getMonth() + 1;
+        const year = now.getFullYear();
+
+        // Gregorian — English on top, Arabic below
+        document.getElementById("dayEn").textContent = day;
+        document.getElementById("dayAr").textContent = toArabic(String(day));
+        document.getElementById("monthEn").textContent = month;
+        const monthNameAr = new Intl.DateTimeFormat("ar-SA", {
+          month: "long",
+        }).format(now);
+        document.getElementById("monthAr").textContent = monthNameAr;
+        document.getElementById("yearEn").textContent = year;
+        document.getElementById("yearAr").textContent = toArabic(String(year));
+
+        // Hijri — English on top, Arabic below (same pattern as Gregorian)
+        const h = getHijriParts();
+        document.getElementById("hDayEn").textContent = h.dayEn;
+        document.getElementById("hDayAr").textContent = h.dayAr;
+        document.getElementById("hMonthEn").textContent = h.monthNum;
+        document.getElementById("hMonthAr").textContent = h.monthAr;
+        document.getElementById("hYearEn").textContent = h.yearEn;
+        document.getElementById("hYearAr").textContent = h.yearAr;
+
+        document.getElementById("footerYear").textContent = year;
+      }
+
+      updateDateCards();
+
+      // ── LIVE CONVERSION ──────────────────────
+      inputText.addEventListener("input", () => {
+        const val = inputText.value;
+        const converted = toArabic(val);
+        const t = T[currentLang];
+
+        charCountEl.textContent = val.length;
+
+        if (converted.trim()) {
+          outputText.textContent = converted;
+          outputText.classList.remove("muted");
+          outputText.classList.add("text-amber-400");
+        } else {
+          outputText.textContent = t.outputPlaceholder;
+          outputText.classList.add("muted");
+          outputText.classList.remove("text-amber-400");
+        }
+      });
+
+      // ── HISTORY ──────────────────────────────
+      function pushHistory(text) {
+        if (!text || conversionHistory.includes(text)) return;
+        conversionHistory.unshift(text);
+        if (conversionHistory.length > 5) conversionHistory.pop();
+
+        historyContainer.innerHTML = "";
+        conversionHistory.forEach((item) => {
+          const div = document.createElement("div");
+          div.className =
+            "history-item rounded-xl border p-3 text-sm text-amber-300 font-bold break-all";
+          div.textContent = item;
+          historyContainer.appendChild(div);
+        });
+      }
+
+      // ── COPY ─────────────────────────────────
+      copyBtn.addEventListener("click", async () => {
+        const t = T[currentLang];
+        const text = outputText.textContent;
+        if (!text || text === t.outputPlaceholder) return;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          copyBtn.textContent = t.copied;
+          pushHistory(text);
+        } catch {
+          try {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            ta.style.cssText = "position:fixed;opacity:0;";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            copyBtn.textContent = t.copied;
+            pushHistory(text);
+          } catch {
+            copyBtn.textContent = t.failed;
+          }
+        }
+        setTimeout(() => {
+          copyBtn.textContent = t.copy;
+        }, 2000);
+      });
+
+      // ── CLEAR ────────────────────────────────
+      function clearAll() {
+        const t = T[currentLang];
+        inputText.value = "";
+        charCountEl.textContent = "0";
+        outputText.textContent = t.outputPlaceholder;
+        outputText.classList.add("muted");
+        outputText.classList.remove("text-amber-400");
+      }
+      clearBtn.addEventListener("click", clearAll);
+
+      // ── LANGUAGE ─────────────────────────────
+      function updateLanguage(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+        langToggle.textContent = lang === "en" ? "AR" : "EN";
+
+        const t = T[lang];
+
+        document.getElementById("heroTitle").innerHTML =
+          `${t.title}<span class="block text-amber-400">${t.subtitle}</span>`;
+        document.getElementById("heroDescription").textContent = t.description;
+        document.getElementById("converterTitle").textContent = t.converter;
+        document.getElementById("converterDesc").textContent = t.converterDesc;
+        document.getElementById("inputLabel").textContent = t.inputLabel;
+        document.getElementById("outputLabel").textContent = t.outputLabel;
+        document.getElementById("historyTitle").textContent = t.history;
+        document.getElementById("gregLabel").textContent = t.gregLabel;
+        document.getElementById("hijriLabel").textContent = t.hijriLabel;
+        document.getElementById("dayLabel").textContent = t.day;
+        document.getElementById("monthLabel").textContent = t.month;
+        document.getElementById("yearLabel").textContent = t.year;
+        document.getElementById("hDayLabel").textContent = t.hDay;
+        document.getElementById("hMonthLabel").textContent = t.hMonth;
+        document.getElementById("hYearLabel").textContent = t.hYear;
+
+        inputText.placeholder = t.placeholder;
+        copyBtn.textContent = t.copy;
+        clearBtn.textContent = t.clear;
+
+        charWrapper.innerHTML = `${t.characters}: <span id="charCount">${inputText.value.length}</span>`;
+        charCountEl = document.getElementById("charCount");
+
+        if (!inputText.value.trim()) {
+          outputText.textContent = t.outputPlaceholder;
+          outputText.classList.add("muted");
+          outputText.classList.remove("text-amber-400");
+        }
+
+        if (conversionHistory.length === 0) {
+          historyContainer.innerHTML = `<p class="muted text-sm">${t.noHistory}</p>`;
+        }
+      }
+
+      langToggle.addEventListener("click", () => {
+        updateLanguage(currentLang === "en" ? "ar" : "en");
+      });
+
+      // ── THEME ────────────────────────────────
+      function updateTheme(theme) {
+        currentTheme = theme;
+        if (theme === "light") {
+          document.body.classList.replace("dark-mode", "light-mode");
+          themeToggle.textContent = "☀️";
+        } else {
+          document.body.classList.replace("light-mode", "dark-mode");
+          themeToggle.textContent = "🌙";
+        }
+        localStorage.setItem("theme", theme);
+      }
+
+      themeToggle.addEventListener("click", () => {
+        updateTheme(currentTheme === "dark" ? "light" : "dark");
+      });
+
+      // ── KEYBOARD SHORTCUT ────────────────────
+      document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.key.toLowerCase() === "k") {
+          e.preventDefault();
+          clearAll();
+        }
+      });
+
+      // ── INIT ─────────────────────────────────
+      updateTheme(localStorage.getItem("theme") || "dark");
+      updateLanguage("en");
+    </script>
+  </body>
+</html>
