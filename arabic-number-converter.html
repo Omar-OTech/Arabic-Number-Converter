@@ -39,7 +39,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- ═══════════════════════════════════════════
-       REPLACE ca-pub-XXXXXXXXXXXXXXXXX with YOUR publisher ID
+       
   ════════════════════════════════════════════ -->
     <script
       async
@@ -670,10 +670,9 @@
           const monthNum = getEn("month");
           const yearEn = getEn("year");
 
-          const monthEn = new Intl.DateTimeFormat(
-            "en-u-ca-islamic-umalqura",
-            { month: "long" },
-          ).format(now);
+          const monthEn = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
+            month: "long",
+          }).format(now);
           const monthAr = new Intl.DateTimeFormat(
             "ar-SA-u-ca-islamic-umalqura",
             { month: "long" },
